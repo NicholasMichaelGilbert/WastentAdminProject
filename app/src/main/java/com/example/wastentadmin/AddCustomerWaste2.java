@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AddCustomerWaste2 extends AppCompatActivity {
-    TextView tvCustomerName, tvCustomerWaste, tvStaticWasteAdded, tvStaticWasteCollected, tvNewCustomerWaste, tvStaticMoneyAchieved, tvMoneyAchieved;
+    TextView tvCustomerName, tvCustomerWaste, tvStaticWasteCollected, tvNewCustomerWaste, tvStaticMoneyAchieved, tvMoneyAchieved, tvStaticNewWaste, tvStaticNewData;
     EditText etWasteAdded;
     Button btnAddWaste, btnFinish;
     FirebaseUser mFirebaseUser;
@@ -42,10 +42,11 @@ public class AddCustomerWaste2 extends AppCompatActivity {
 
         tvCustomerName = findViewById(R.id.customer_name);
         tvCustomerWaste = findViewById(R.id.customer_wasteCollected);
-        tvStaticWasteAdded = findViewById(R.id.staticWasteAdded);
         tvStaticWasteCollected = findViewById(R.id.staticNewWasteCollected);
         tvNewCustomerWaste = findViewById(R.id.customer_newWaste);
         etWasteAdded = findViewById(R.id.waste_added);
+        tvStaticNewWaste = findViewById(R.id.staticNewWaste);
+        tvStaticNewData = findViewById(R.id.staticNewData);
         btnAddWaste = findViewById(R.id.buttonAddWaste);
         btnFinish = findViewById(R.id.buttonFinish);
         tvStaticMoneyAchieved = findViewById(R.id.staticMoneyAchieved);
@@ -54,9 +55,9 @@ public class AddCustomerWaste2 extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        tvStaticWasteAdded.setVisibility(View.INVISIBLE);
         tvStaticWasteCollected.setVisibility(View.INVISIBLE);
         tvNewCustomerWaste.setVisibility(View.INVISIBLE);
+        tvStaticNewData.setVisibility(View.INVISIBLE);
         tvStaticMoneyAchieved.setVisibility(View.INVISIBLE);
         tvMoneyAchieved.setVisibility(View.INVISIBLE);
         btnFinish.setVisibility(View.INVISIBLE);
@@ -108,15 +109,15 @@ public class AddCustomerWaste2 extends AppCompatActivity {
                     newMoneyAchieved = customerMoneyAchieved + wasteAdded * moneyPerKilo;
                     dbRef.child("wasteCollected").setValue(newWasteCollected);
                     dbRef.child("moneyAchieved").setValue(newMoneyAchieved);
-                    tvStaticWasteAdded.setVisibility(View.VISIBLE);
                     tvStaticWasteCollected.setVisibility(View.VISIBLE);
                     tvNewCustomerWaste.setVisibility(View.VISIBLE);
                     tvStaticMoneyAchieved.setVisibility(View.VISIBLE);
+                    tvStaticNewWaste.setVisibility(View.INVISIBLE);
                     tvMoneyAchieved.setVisibility(View.VISIBLE);
                     btnFinish.setVisibility(View.VISIBLE);
+                    tvStaticNewData.setVisibility(View.VISIBLE);
                     btnAddWaste.setVisibility(View.INVISIBLE);
                     etWasteAdded.setVisibility(View.INVISIBLE);
-                    tvStaticWasteAdded.setVisibility(View.INVISIBLE);
                     tvNewCustomerWaste.setText(String.valueOf(newWasteCollected + " kg"));
                     tvMoneyAchieved.setText(String.valueOf("Rp "+ newMoneyAchieved + " ,-"));
                 }
